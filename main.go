@@ -177,16 +177,16 @@ func deactivateUserDetails(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, http.StatusBadRequest, "Invalid Method", "Invalid")
 		return
 	}
-	// token := r.Header.Get("tokenid")
-	// _, role, err := validateToken(token)
-	// if err != nil {
-	// 	respondWithError(w, http.StatusBadRequest, fmt.Sprintf("%v", err), "Error Occurred")
-	// 	return
-	// }
-	// if role != "Admin" {
-	// 	respondWithError(w, http.StatusBadRequest, "Token is invalid as it's role is different", "Invalid")
-	// 	return
-	// }
+	token := r.Header.Get("tokenid")
+	_, role, err := validateToken(token)
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, fmt.Sprintf("%v", err), "Error Occurred")
+		return
+	}
+	if role != "Admin" {
+		respondWithError(w, http.StatusBadRequest, "Token is invalid as it's role is different", "Invalid")
+		return
+	}
 
 	segment := strings.Split(r.URL.Path, "/")
 	id := segment[len(segment)-1]

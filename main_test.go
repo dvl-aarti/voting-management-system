@@ -9,6 +9,9 @@ import (
 	"testing"
 )
 
+var AdminTokenId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlJha3Vsa3VtYXJyYWowMUBnbWFpbC5jb20iLCJleHAiOjE2NjgxMTMxNzN9.Bd5kIMfwKgeIEf1pwolK0cr5UCCMBt0a_r6mbHB7IZs"
+var VoterTokenId = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFha2FzaGt1bWFycmFqMDFAZ21haWwuY29tIiwiZXhwIjoxNjY4MTEzMjI1fQ.z9QqLT8-m9d3KbwTBsPZz4eWz48BLHn-_39turS2AeM"
+
 func TestAddUser(t *testing.T) {
 	payload := strings.NewReader(`
 	{
@@ -96,7 +99,7 @@ func TestUpdateUserDetailsById(t *testing.T) {
 
 	req := httptest.NewRequest("PUT", "/api/update-user/635fa51ef789c99423194c53", payload)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", VoterTokenId)
 	w := httptest.NewRecorder()
 
 	// handler := http.HandlerFunc(controller.AddUser)
@@ -130,7 +133,7 @@ func TestVerifyUserDetailsById(t *testing.T) {
 
 	req := httptest.NewRequest("POST", "/api/verify-user-detail/", payload)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", AdminTokenId)
 	w := httptest.NewRecorder()
 
 	// handler := http.HandlerFunc(controller.AddUser)
@@ -157,7 +160,7 @@ func TestDeleteUser(t *testing.T) {
 
 	req := httptest.NewRequest("DELETE", "/api/user/delete/635f9f388bbc58a8ae0eb5b6", nil)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", AdminTokenId)
 	w := httptest.NewRecorder()
 	// handler := http.HandlerFunc(controller.DeleteUser)
 
@@ -319,7 +322,7 @@ func TestUpdateElectionDetailsById(t *testing.T) {
 
 	req := httptest.NewRequest("PUT", "/api/update-election/636b80d02a455e9567c916e5", payload)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", AdminTokenId)
 	w := httptest.NewRecorder()
 
 	// handler := http.HandlerFunc(controller.AddUser)
@@ -378,7 +381,7 @@ func TestDeleteElection(t *testing.T) {
 
 	req := httptest.NewRequest("DELETE", "/api/election-deactivate/6363871c01e7236d16372c84", nil)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", AdminTokenId)
 	w := httptest.NewRecorder()
 	// handler := http.HandlerFunc(controller.DeleteUser)
 
@@ -449,7 +452,7 @@ func TestVerifyCandidateDetails(t *testing.T) {
 
 	req := httptest.NewRequest("POST", "/api/verify-candidate/", payload)
 	req.Header.Add("Content-Type", "application/json")
-
+	req.Header.Set("tokenid", AdminTokenId)
 	w := httptest.NewRecorder()
 
 	// handler := http.HandlerFunc(controller.AddUser)
